@@ -1,8 +1,10 @@
 #! /bin/bash
 
 # Run this once to get everything setup
+# you must run this script as sudo or root
+# Works with Ubuntu 21
 
-apt update && sudo apt upgrade -y
+apt update && apt upgrade -y
 
 # definitely needed
 apt install nginx libnginx-mod-rtmp -y
