@@ -23,6 +23,9 @@ cp ./index.html /var/www/html
 chown -R www-data:www-data /var/www/html
 echo "copied index.html to /var/www/html"
 
+wget https://raw.githubusercontent.com/arut/nginx-rtmp-module/master/stat.xsl | /var/www/html/stat.xsl
+echo "downloaded stat.xsl to /var/www/html/stat.xsl"
+
 # firewall setup
 ufw allow 1935
 ufw allow 80
