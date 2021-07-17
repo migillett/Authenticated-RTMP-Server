@@ -4,7 +4,7 @@
 # you must run this script as sudo or root
 # Tested with Ubuntu 21.04
 
-apt update && apt upgrade -y
+apt update
 
 # definitely needed
 apt install nginx libnginx-mod-rtmp -y
