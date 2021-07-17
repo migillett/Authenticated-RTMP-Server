@@ -37,4 +37,4 @@ echo "nginx configuration copied to /etc/nginx"
 service nginx restart
 echo "nginx restarted"
 
-echo "Script done! Last step is to change the [stream_key] variable in /var/www/html/index.html"
+echo "Script done! Last step is to change the [stream_key] variable in /var/www/html/index.html and [supersecretpassword] in /etc/nginx/nginx.conf"
