@@ -7,9 +7,7 @@ A simple RTMP server using [NGINX](https://nginx.org/en/docs/). The server works
 3. Login as root with `sudo su` and run the setup using `bash setup.sh` or run as your current user (with sudo privileges) using `sudo bash setup.sh`
 4. The script will run and give you updates on each step.
 5. The last step in the shell script will tell you to change the `[stream_key]` in the `/var/www/html/index.html` file. Change it to whatever stream key you'll be using to send your video.
-6. Using [OBS](https://obsproject.com/), connect to your server using the url `rtmp://[your server ip]/live` and a stream key of your choice (just make sure it matches the `index.html` stream key in step 9.
-7. Pull up your server's IP address in your favorite web browser and you're off to the races.
-8. You may need to restart NGINX using `service nginx restart`.
-
-## Upcoming updates
-This is still in the early stages, but I plan to implement a python authentication server. That's coming soon-ish.
+6. Change the password in `/etc/nginx/nginx.conf` where it says `$arg_pwd = 'supersecretpassword'`. Change it to whatever you want, but keep it in mind. You'll need it later for OBS.
+7. Using [OBS](https://obsproject.com/), connect to your server using the url `rtmp://[your server ip]/live` and the stream key `[stream key from step 5]$pwd=[password from step 6]`. Just make sure that your stream key matches what you set it up as in step 5. Then click "Start Streaming" in OBS.
+8. Pull up your server's IP address in your favorite web browser and you're off to the races.
+9. You may need to restart NGINX using `service nginx restart`.
