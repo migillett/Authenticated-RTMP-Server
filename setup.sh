@@ -28,15 +28,15 @@ echo "RTMP SERVER SETUP.SH: downloaded stat.xsl to /var/www/html/stat.xsl"
 chown -R www-data:www-data /var/www/*
 echo "RTMP SERVER SETUP.SH: changed permissions to user www-data in folder /var/www"
 
-# firewall setup
-apt install ufw
-ufw default drop incoming
-ufw default allow outgoing
-ufw allow 1935
-ufw allow ssh
-ufw allow http
-ufw enable
-echo "RTMP SERVER SETUP.SH: firewall updated and enabled"
+# firewall setup (uncomment if you want to use it)
+#apt install ufw
+#ufw default drop incoming
+#ufw default allow outgoing
+#ufw allow 1935
+#ufw allow ssh
+#ufw allow http
+#ufw enable
+#echo "RTMP SERVER SETUP.SH: firewall updated and enabled"
 
 cp ./nginx.conf /etc/nginx
 echo "RTMP SERVER SETUP.SH: nginx configuration copied to /etc/nginx"
