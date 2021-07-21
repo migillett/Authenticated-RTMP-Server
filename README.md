@@ -15,7 +15,8 @@ A simple RTMP server using [NGINX](https://nginx.org/en/docs/). The server works
 ## Setup (Docker)
 1. Install docker and docker-compose
 2. Clone the repository using `git clone https://github.com/migillett/simple_rtmp_server.git`
-3. Go into the `nginx.conf` file and change `$arg_pwd = 'supersecretpassword'` to whatever you want it to be (HOLD ON TO THIS).
-4. Go into `index.html` and change the stream key to your target stream key.
-5. Run `docker-compose build` to compile
-6. Run `docker-compose up` to run the docker file
+3. Change directory using `cd ./simple_rtmp_server`
+4. Go into the `nginx.conf` file and change `$arg_pwd = 'supersecretpassword'` to whatever you want it to be (HOLD ON TO THIS).
+5. Change the `[stream_key]` variable in the `/var/www/html/index.html` file. Change it to whatever stream key you'll be using to send your video.
+6. Run `docker-compose build` to compile
+7. Run `docker-compose up` to run the docker file
