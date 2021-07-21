@@ -19,7 +19,7 @@ echo "RTMP SERVER SETUP.SH: created /var/www/html"
 
 # if it already exists, clear all contents
 rm /var/www/html/*
-cp ./index.html /var/www/html
+cp ./nginx/index.html /var/www/html
 echo "RTMP SERVER SETUP.SH: copied index.html to /var/www/html"
 
 wget https://raw.githubusercontent.com/arut/nginx-rtmp-module/master/stat.xsl | /var/www/html/stat.xsl
@@ -38,7 +38,7 @@ echo "RTMP SERVER SETUP.SH: changed permissions to user www-data in folder /var/
 #ufw enable
 #echo "RTMP SERVER SETUP.SH: firewall updated and enabled"
 
-cp ./nginx.conf /etc/nginx
+cp ./nginx/nginx.conf /etc/nginx
 echo "RTMP SERVER SETUP.SH: nginx configuration copied to /etc/nginx"
 service nginx restart
 echo "RTMP SERVER SETUP.SH: nginx restarted"
