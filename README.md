@@ -20,3 +20,5 @@ A simple RTMP server using [NGINX](https://nginx.org/en/docs/). The server works
 5. Change the `[stream_key]` variable in the `/var/www/html/index.html` file. Change it to whatever stream key you'll be using to send your video.
 6. Run `docker-compose build` to compile
 7. Run `docker-compose up` to run the docker file
+8. Using [OBS](https://obsproject.com/), connect to your server using the url `rtmp://[your server ip]/live` and the stream key `[stream key from step 5]$pwd=[password from step 4]`. Just make sure that your stream key matches what you set it up as in step 5. Then click "Start Streaming" in OBS.
+9. Pull up your server's IP address in your favorite web browser and you're off to the races.
