@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+   rtmp:
+      build: ./
+      restart: always
+      ports:
+         - "80:80"
+         - "1935:1935"
+      container_name: rtmp_server
