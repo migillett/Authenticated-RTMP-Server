@@ -1,3 +1,0 @@
-valid_keys = [
-    '1656f8eb095249907a3ad1468cffd7b1a0e6a4ae0360c1000b7214a954fe0c91'
-]
