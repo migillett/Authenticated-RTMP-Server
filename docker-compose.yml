@@ -17,7 +17,7 @@ services:
       container_name: rtmp_server
       networks: 
          rtmp_network:
-            ipv4_address: 172.100.0.3
+            ipv4_address: 172.100.0.2
 
    auth:
       build: ./auth
@@ -25,4 +25,4 @@ services:
       container_name: rtmp_auth
       networks: 
          rtmp_network:
-            ipv4_address: 172.100.0.2
+            ipv4_address: 172.100.0.3
