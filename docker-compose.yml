@@ -1,5 +1,12 @@
 version: '3.5'
 
+networks:
+   rtmp_network:
+      driver: bridge
+      ipam:
+         config: 
+            - subnet: 172.100.0.0/24
+
 services:
    rtmp:
       build: ./nginx
@@ -8,8 +15,14 @@ services:
          - "80:80"
          - "1935:1935"
       container_name: rtmp_server
+      networks: 
+         rtmp_network:
+            ipv4_address: 172.100.0.1
 
    auth:
       build: ./auth
       restart: always
       container_name: rtmp_auth
+      networks: 
+         rtmp_network:
+            ipv4_address: 172.100.0.2
