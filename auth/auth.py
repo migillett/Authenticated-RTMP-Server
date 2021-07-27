@@ -7,7 +7,7 @@ from hash import hash_text
 app = Flask(__name__)
 
 
-@app.route('/auth', methods=['GET'])
+@app.route('/auth/', methods=['GET'])
 def authorize_stream():
     print('stream received')
     hashed_key = hash_text(request.args['pwd'])
@@ -21,4 +21,4 @@ def authorize_stream():
         return jsonify(message='Invalid stream key'), 401
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', debug=True, port=5000)
+    app.run(host='0.0.0.0', debug=True, port=5000)
