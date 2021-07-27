@@ -9,15 +9,12 @@ app = Flask(__name__)
 
 @app.route('/auth/', methods=['GET'])
 def authorize_stream():
-    print('stream received')
     hashed_key = hash_text(request.args['pwd'])
 
     if hashed_key in valid_keys:
-        print('stream accepted')
         return jsonify(message='Successful login'), 201
 
     else:
-        print('stream denied')
         return jsonify(message='Invalid stream key'), 401
 
 if __name__ == '__main__':
