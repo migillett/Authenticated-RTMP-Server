@@ -8,3 +8,8 @@ services:
          - "80:80"
          - "1935:1935"
       container_name: rtmp_server
+
+   auth:
+      build: ./auth
+      restart: always
+      container_name: rtmp_auth
