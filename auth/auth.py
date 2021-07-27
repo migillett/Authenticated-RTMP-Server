@@ -7,7 +7,7 @@ from hash import hash_text
 app = Flask(__name__)
 
 
-@app.route('/auth', methods=['GET'])
+@app.route('/', methods=['GET'])
 def authorize_stream():
     hashed_key = hash_text(request.args['pwd'])
 
