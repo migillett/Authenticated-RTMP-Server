@@ -18,4 +18,4 @@ def authorize_stream():
         return jsonify(message='Invalid stream key'), 401
 
 if __name__ == '__main__':
-    app.run(host='172.100.0.3', debug=True, port=5000)
+    app.run(host='rtmp_auth', debug=True, port=5000)
