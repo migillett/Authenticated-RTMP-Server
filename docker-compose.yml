@@ -15,3 +15,5 @@ services:
       build: ./auth
       restart: always
       container_name: rtmp_auth
+      ports:
+         - "5000:5000"
