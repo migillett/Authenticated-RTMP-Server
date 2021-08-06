@@ -1,55 +1,58 @@
 # https://github.com/newnewcoder/flask-hls-demo/blob/master
 
 from flask import Flask, request, jsonify, render_template
-from json import dumps
+from os import path
+from json import dump, load
 from sys import stderr
 from hash import hash_text
 
 app = Flask(__name__)
 
-streams = {}
+json_folder = path.join(path.curdir, 'stream_keys')
 
-# add your stream key and hashed password here
-keys = {
-    'stream_key': 'hashed stream password (paste here from hash.py)',
-}
+
+def load_json(stream_name):
+    with open(path.join(json_folder, f'{stream_name}.json'), 'r') as json_file:
+        return load(json_file)
+
+
+def update_json(dict, stream_live=False):
+    dict['live'] = stream_live
+    with open(path.join(json_folder, f'{dict["stream_name"]}.json'), 'w') as json_file:
+        dump(dict, json_file)
+
 
 
 @app.route('/auth', methods=['GET'])
 def authorize_stream():
-    stream_key = str(request.args['name'])
+    stream_name = str(request.args['name'])
 
-    # prevents a KeyError when searching the dictionary later
-    if stream_key not in streams:
-        streams[stream_key] = False
+    try:
+        stream_stats = load_json(stream_name)
 
-    if keys[stream_key] == hash_text(request.args['pwd']):
-        # check if there's already a stream active under stream key. If false (stream inactive), allow and set to true
-        if not streams[stream_key]:
-            print(f'Stream Key accepted: {stream_key}', file=stderr)
-            streams[stream_key] = True
-            return jsonify(message='Successful login'), 201
+        if stream_stats['stream_key'] == hash_text(request.args['pwd']):
+            if not stream_stats['live']:
+                print(f'Stream Key accepted: {stream_stats["stream_name"]}', file=stderr)
+                update_json(dict=stream_stats, stream_live=True)
+                return jsonify(message='Successful login'), 201
 
+            else:
+                print(f'Stream already active: {stream_stats["stream_name"]}', file=stderr)
+                return jsonify(message='ERROR: Stream already active'), 405
         else:
-            print(f'Stream already active: {stream_key}', file=stderr)
-            return jsonify(message='Stream already active'), 405
+            print(f'ERROR: incorrect stream key', file=stderr)
+            return jsonify(message='ERROR: Stream key incorrect'), 405
 
-    else:
-        return jsonify(message='Invalid stream key'), 401
+    except FileNotFoundError:
+        return jsonify(message=f'ERROR: Stream configuration not found.'), 401
 
 
 @app.route('/stream_done', methods=['GET'])
 def stream_done():
-    stream_key = str(request.args['name'])
-    streams[stream_key] = False
-    print(f'Stream completed: {stream_key}', file=stderr)
+    stream_stats = load_json(str(request.args['name']))
+    update_json(dict=stream_stats, stream_live=False)
+    print(f'Stream completed: {stream_stats["stream_name"]}', file=stderr)
     return jsonify(message='Stream ended successfully'), 200
-
-
-# allow webserver container to get a list of active streams
-@app.route('/active_streams', methods=['GET'])
-def get_active():
-    return jsonify(streams), 200
 
 
 if __name__ == '__main__':
