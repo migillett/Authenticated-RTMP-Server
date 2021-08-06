@@ -1,15 +1,22 @@
 version: '3.7'
 
 services:
-   rtmp:
-      build: ./nginx
-      restart: always
-      ports:
-         - "80:80"
-         - "1935:1935"
-      container_name: rtmp_server
-
+   # for autenticating stream keys
    auth:
       build: ./auth
       restart: always
-      container_name: rtmp_auth
+      # backend server, do not map ports to external world
+      expose:
+         - "5000"
+      container_name: auth_server
+   
+   # for ingesting and converting RTMP to HLS
+   rtmp:
+      build: ./nginx
+      restart: always
+      depends_on:
+         - auth
+      ports:
+         - "1935:1935" # RTMP stream in
+         - "8080:8080" # HLS stream out
+      container_name: rtmp_server
