@@ -1,7 +1,15 @@
 from os import path, mkdir
-from datetime import datetime
 import json
+from typing import Type
 from auth.hash import hash_text
+
+
+def text_input(prompt):
+    text_string = str(input(f'{prompt}'))
+    for letter in str(text_string):
+        if not letter.isalpha() and not letter.isnumeric():
+            raise TypeError('ERROR: You can only use letters and numbers in your stream name and password.')
+    return text_string
 
 
 def check_dir(dir):
@@ -13,32 +21,34 @@ def main():
 
     print('''
 INSTRUCTIONS:
-  1. The stream name is what you want the stream to be called. For instance, auditorium_feed.
+  1. The stream name is what you want the stream to be called. For instance, auditorium_feed. Only use letters, numbers, and - or _ in the name.
   2. The stream password is what you'll use to authenticate with the server. There's no way to recover this, so make sure you write it down!
     ''')
 
     while True:
-        stream_name = str(input('Stream Name: '))
-        stream_key = str(input('Stream Password: '))
+        try:
+            stream_name = text_input(prompt='Stream Name: ')
+        except Exception as error:
+            print(error)
+            continue
 
-        print(f'\nYour stream credentials:\n  Name: {stream_name}\n  Password: {stream_key}')
-        response = str(input('\nIs this information correct? (Y/N): '))
+        try:
+            stream_password = hash_text(text_input(prompt='Stream Password: '))
+        except Exception as error:
+            print(error)
+            continue
 
-        if response.upper() == 'Y':
-            dict = {'stream_name': stream_name, 'stream_key': hash_text(stream_key), 'live': False}
+        dict = {'stream_name': stream_name, 'stream_key': stream_password, 'live': False}
 
-            key_location = path.join(path.curdir, 'auth', 'stream_keys')
-            check_dir(key_location)
+        key_folder = path.join(path.curdir, 'auth', 'stream_keys')
+        check_dir(key_folder)
 
-            with open(path.join(key_location, f'{stream_name}.json'), 'w') as j:
-                json.dump(dict, j)
+        with open(path.join(key_folder, f'{stream_name}.json'), 'w') as j:
+            json.dump(dict, j)
 
-            cont = input('Configuration saved. Add another? (Y/N): ')
-  
-            if str(cont).upper() == 'N':
-                break
-            else:
-                continue
+        response = input('Configuration saved. Add another? (Y/N): ')
+        if str(response).upper() == 'N':
+            break
         else:
             continue
 
