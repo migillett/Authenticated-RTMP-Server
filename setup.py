@@ -1,10 +1,16 @@
-from os import path
+from os import path, mkdir
 from datetime import datetime
 import json
 from auth.hash import hash_text
 
 
+def check_dir(dir):
+    if not path.exists(dir):
+        mkdir(dir)
+
+
 def main():
+
     print('''
 INSTRUCTIONS:
   1. The stream name is what you want the stream to be called. For instance, auditorium_feed.
@@ -21,7 +27,10 @@ INSTRUCTIONS:
         if response.upper() == 'Y':
             dict = {'stream_name': stream_name, 'stream_key': hash_text(stream_key), 'live': False}
 
-            with open(path.join(path.curdir, 'auth', 'stream_keys', f'{stream_name}.json'), 'w') as j:
+            key_location = path.join(path.curdir, 'auth', 'stream_keys')
+            check_dir(key_location)
+
+            with open(path.join(key_location, f'{stream_name}.json'), 'w') as j:
                 json.dump(dict, j)
 
             cont = input('Configuration saved. Add another? (Y/N): ')
