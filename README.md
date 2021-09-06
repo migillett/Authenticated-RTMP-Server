@@ -1,6 +1,8 @@
 # Authenticated RTMP Server
 A simple RTMP server using [NGINX](https://nginx.org/en/docs/). The server works by ingesting a RTMP feed and converts it into HLS. It uses Flask as a backend to authenticate new streams based on a stream name and stream password combination. All stream passwords stored on the server-side are hashed using SHA256. The Flask server also prevents multiple streams using the same login credentials.
 
+This project is based on the work of many different tutorials, but mostly following the examples of [Abdisalan Mohamud](https://github.com/Abdisalan/blog-code-examples).
+
 ## Setup
 1. Install docker and docker-compose
 2. Clone the repository using `git clone https://github.com/migillett/simple_rtmp_server.git`
