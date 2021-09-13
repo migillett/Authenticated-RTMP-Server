@@ -1,2 +1,4 @@
 
 .DS_Store
+auth/__pycache__/hash.cpython-39.pyc
+*.json

@@ -18,5 +18,5 @@ services:
          - auth
       ports:
          - "1935:1935" # RTMP stream in
-         - "8080:8080" # HLS stream out
+         - "80:80" # HLS stream out
       container_name: rtmp_server
