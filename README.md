@@ -19,4 +19,4 @@ All you have to do is type in the URL of your stream like so: `http://[your_serv
 You can view the stream using [VLC](https://www.videolan.org/vlc/) by going to Media > Open Network Stream... From there, you can paste in the following url to access it: `http://[your_server_ip]/hls/[stream_name]/index.m3u8`.
 
 ### Embedding into Websites
-You can use [Video.JS](https://videojs.com/) to embed the video stream on your website. Just copy and paste their HTML template into your website and replace the src tag with the m3u8 stream url: `http://[your_server_ip]:8080/hls/[stream_name]/index.m3u8`.
+You can use [Video.JS](https://videojs.com/) to embed the video stream on your website. Just copy and paste their HTML template into your website and replace the src tag with the m3u8 stream url: `http://[your_server_ip]/hls/[stream_name]/index.m3u8`.
